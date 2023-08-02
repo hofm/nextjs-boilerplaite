@@ -1,11 +1,13 @@
 import Image from 'next/image'
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Test from '@/src/test';
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <SignedIn>
         <UserButton afterSignOutUrl="/" />
+        <Test />
       </SignedIn>
       <SignedOut>
         <SignInButton />
