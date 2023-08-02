@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const List = () => {
-  const [ list, setList ] = useState<{ name: string}[]>([]);
+  const [list, setList] = useState<{ name: string }[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -15,8 +15,12 @@ const List = () => {
     fetchData();
   }, []);
   return (
-    <div>{list.map((item, idx) => <ul key={idx}>{item.name}</ul>)}</div>
-  )
-}
+    <div>
+      {list.map((item, idx) => (
+        <ul key={idx}>{item.name}</ul>
+      ))}
+    </div>
+  );
+};
 
 export default List;

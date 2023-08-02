@@ -1,53 +1,47 @@
-import prismadb from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
+import prismadb from '@/lib/prismadb';
+import { auth } from '@clerk/nextjs';
+import { NextResponse } from 'next/server';
 
-export async function GET(
-    req: Request,
-) {
-    try {
-        const { userId } = auth();
+export async function GET(req: Request) {
+  try {
+    const { userId } = auth();
 
-        if (!userId) {
-            return new NextResponse('Unauthorized', {status: 401});
-        }
-
-        const store = await prismadb.store.findMany();
-
-        return NextResponse.json(store);
-    } catch (error) {
-        console.log(error);
-        return new NextResponse('Internal error', {status: 500});
+    if (!userId) {
+      return new NextResponse('Unauthorized', { status: 401 });
     }
 
+    const store = await prismadb.store.findMany();
+
+    return NextResponse.json(store);
+  } catch (error) {
+    console.log(error);
+    return new NextResponse('Internal error', { status: 500 });
+  }
 }
 
-export async function POST(
-    req: Request,
-) {
-    try {
-        const { userId } = auth();
-        const { name } = await req.json();
+export async function POST(req: Request) {
+  try {
+    const { userId } = auth();
+    const { name } = await req.json();
 
-        if (!userId) {
-            return new NextResponse('Unauthorized', {status: 401});
-        }
-
-        if (!name) {
-            return new NextResponse('Name is required', {status: 400});
-        }
-
-        const store = await prismadb.store.create({
-            data: {
-                name,
-                userId,
-            }
-        });
-
-        return NextResponse.json(store);
-    } catch (error) {
-        console.log(error);
-        return new NextResponse('Internal error', {status: 500});
+    if (!userId) {
+      return new NextResponse('Unauthorized', { status: 401 });
     }
 
+    if (!name) {
+      return new NextResponse('Name is required', { status: 400 });
+    }
+
+    const store = await prismadb.store.create({
+      data: {
+        name,
+        userId,
+      },
+    });
+
+    return NextResponse.json(store);
+  } catch (error) {
+    console.log(error);
+    return new NextResponse('Internal error', { status: 500 });
+  }
 }
