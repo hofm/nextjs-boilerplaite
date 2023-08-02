@@ -18,9 +18,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { Textarea } from '@/components/ui/textarea';
+import showdown  from 'showdown';
 
 const formSchema = z.object({
   name: z.string().min(1),
+  text: z.string().min(1),
 });
 
 const MyForm = () => {
@@ -36,6 +39,12 @@ const MyForm = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
+      
+      //Markdown to HTML
+      const converter = new showdown.Converter();
+      const html      = converter.makeHtml(values.text);
+      console.log('html', html);
+
       const response = await axios.post('/api/stores', values);
       toast.success('Name saved!');
     } catch (error) {
@@ -56,6 +65,22 @@ const MyForm = () => {
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input disabled={loading} placeholder='shadcn' {...field} />
+              </FormControl>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='text'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Text</FormLabel>
+              <FormControl>
+                <Textarea disabled={loading} placeholder='shadcn' {...field} />
               </FormControl>
               <FormDescription>
                 This is your public display name.
