@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import MarkdownToDom from './markdownToHtml';
+import MarkdownToDom from '@/components/lib/markdownToHtml';
 
 const List = () => {
   const [list, setList] = useState<{ content: string }[]>([]);

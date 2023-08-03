@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import MyForm from '@/src/form';
-import List from '@/src/list';
+import MyForm from '@/components/form';
+import List from '@/components/list';
 
 export default function Home() {
   return (

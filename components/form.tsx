@@ -15,11 +15,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Textarea } from '@/components/ui/textarea';
-import showdown from 'showdown';
 
 const formSchema = z.object({
   content: z.string().min(1),
