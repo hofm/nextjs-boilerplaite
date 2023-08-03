@@ -5,7 +5,7 @@ import axios from 'axios';
 import MarkdownToDom from './markdownToHtml';
 
 const List = () => {
-  const [list, setList] = useState<{ name: string }[]>([]);
+  const [list, setList] = useState<{ content: string }[]>([]);
 
   useEffect(() => {
     async function fetchData() {
