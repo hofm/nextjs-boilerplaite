@@ -19,11 +19,10 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Textarea } from '@/components/ui/textarea';
-import showdown  from 'showdown';
+import showdown from 'showdown';
 
 const formSchema = z.object({
-  name: z.string().min(1),
-  text: z.string().min(1),
+  content: z.string().min(1),
 });
 
 const MyForm = () => {
@@ -32,21 +31,16 @@ const MyForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      content: '',
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      
-      //Markdown to HTML
-      const converter = new showdown.Converter();
-      const html      = converter.makeHtml(values.text);
-      console.log('html', html);
 
-      const response = await axios.post('/api/stores', values);
-      toast.success('Name saved!');
+      await axios.post('/api/news', values);
+      toast.success('News saved!');
     } catch (error) {
       toast.error('Something went wrong!');
     } finally {
@@ -59,31 +53,15 @@ const MyForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
         <FormField
           control={form.control}
-          name='name'
+          name='content'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input disabled={loading} placeholder='shadcn' {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='text'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Text</FormLabel>
+              <FormLabel>News</FormLabel>
               <FormControl>
                 <Textarea disabled={loading} placeholder='shadcn' {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name.
+                This is in markdown syntax.
               </FormDescription>
               <FormMessage />
             </FormItem>

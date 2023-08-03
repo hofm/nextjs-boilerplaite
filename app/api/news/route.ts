@@ -10,11 +10,10 @@ export async function GET(req: Request) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const store = await prismadb.store.findMany();
+    const news = await prismadb.news.findMany();
 
-    return NextResponse.json(store);
+    return NextResponse.json(news);
   } catch (error) {
-    console.log(error);
     return new NextResponse('Internal error', { status: 500 });
   }
 }
@@ -22,26 +21,25 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
-    const { name } = await req.json();
+    const { content } = await req.json();
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    if (!name) {
-      return new NextResponse('Name is required', { status: 400 });
+    if (!content) {
+      return new NextResponse('Content is required', { status: 400 });
     }
 
-    const store = await prismadb.store.create({
+    const news = await prismadb.news.create({
       data: {
-        name,
+        content,
         userId,
       },
     });
 
-    return NextResponse.json(store);
+    return NextResponse.json(news);
   } catch (error) {
-    console.log(error);
     return new NextResponse('Internal error', { status: 500 });
   }
 }
