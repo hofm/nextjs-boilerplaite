@@ -16,13 +16,13 @@ const List = () => {
   }, []);
 
   return (
-      <div>
-        {list.map((item, idx) => (
-          <div key={idx}>
-            <MarkdownToDom value={item.content} />
-          </div>
-        ))}
-      </div>
+    <div>
+      {list.map((item, idx) => (
+        <div key={idx}>
+          <MarkdownToDom value={item.content} />
+        </div>
+      ))}
+    </div>
   );
 };
 

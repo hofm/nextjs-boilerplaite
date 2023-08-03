@@ -60,9 +60,7 @@ const MyForm = () => {
               <FormControl>
                 <Textarea disabled={loading} placeholder='shadcn' {...field} />
               </FormControl>
-              <FormDescription>
-                This is in markdown syntax.
-              </FormDescription>
+              <FormDescription>This is in markdown syntax.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

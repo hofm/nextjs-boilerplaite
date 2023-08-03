@@ -7,7 +7,10 @@ interface htmlToDomProps {
 
 const HtmlToDom: FC<htmlToDomProps> = ({ rawHTML }) => {
   return (
-    <div className='prose' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(rawHTML) }} />
+    <div
+      className='prose'
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(rawHTML) }}
+    />
   );
 };
 
